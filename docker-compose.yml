@@ -1,0 +1,50 @@
+# CogOS Node — Local Development Stack
+#
+# Usage:
+#   docker compose up          # Full node (kernel + init)
+#   docker compose up cogos    # Kernel only
+#
+# The workspace is mounted from the host. Run `cogos init` first
+# if you haven't initialized a workspace yet.
+
+services:
+  cogos:
+    image: cogos-dev/cogos:latest
+    build:
+      context: ../cogos
+      dockerfile: Dockerfile
+    ports:
+      - "${COGOS_PORT:-5200}:5200"
+    volumes:
+      - "${COGOS_WORKSPACE:-./workspace}:/workspace"
+    environment:
+      - COG_LOG_DEBUG=${COG_LOG_DEBUG:-}
+    command: ["serve", "--workspace", "/workspace", "--port", "5200"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5200/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    restart: unless-stopped
+
+  # Mod³ runs on host for macOS (needs audio device access).
+  # On Linux/headless, uncomment this and add device passthrough:
+  #
+  # mod3:
+  #   image: cogos-dev/mod3:latest
+  #   build:
+  #     context: ../mod3
+  #   ports:
+  #     - "${MOD3_PORT:-5300}:5300"
+  #   devices:
+  #     - /dev/snd:/dev/snd
+  #   depends_on:
+  #     cogos:
+  #       condition: service_healthy
+  #   environment:
+  #     - COGOS_ENDPOINT=http://cogos:5200
+  #   restart: unless-stopped
+
+volumes:
+  workspace:

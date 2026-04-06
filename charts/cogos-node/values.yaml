@@ -1,0 +1,27 @@
+# CogOS Node — Default Values
+#
+# This umbrella chart deploys a complete CogOS node.
+# Enable/disable organelles as needed.
+
+# Kernel settings (always enabled)
+cogos-kernel:
+  image:
+    repository: cogos-dev/cogos
+    tag: latest
+  port: 5200
+  workspace:
+    path: /workspace
+    storageClass: ""
+    size: 10Gi
+
+# Mod³ modality server (optional)
+mod3:
+  enabled: false
+
+cogos-mod3:
+  image:
+    repository: cogos-dev/mod3
+    tag: latest
+  port: 5300
+  kernel:
+    endpoint: http://cogos-kernel:5200

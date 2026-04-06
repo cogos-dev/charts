@@ -1,0 +1,20 @@
+# Mod³ — Default Values
+
+image:
+  repository: cogos-dev/mod3
+  tag: latest
+  pullPolicy: IfNotPresent
+
+port: 5300
+
+kernel:
+  # Kernel endpoint for event relay
+  endpoint: "http://cogos-kernel:5200"
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 2Gi
+  limits:
+    cpu: "4"
+    memory: 4Gi

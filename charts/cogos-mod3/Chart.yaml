@@ -1,0 +1,6 @@
+apiVersion: v2
+name: cogos-mod3
+description: "Mod³ — Model Modality Modulator. Multi-model TTS with adaptive playback, VAD, and speech queuing."
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

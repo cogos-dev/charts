@@ -1,0 +1,37 @@
+# CogOS Kernel — Default Values
+
+image:
+  repository: cogos-dev/cogos
+  tag: latest
+  pullPolicy: IfNotPresent
+
+port: 5200
+
+workspace:
+  # Host path or PVC path for the workspace
+  path: /workspace
+  # Storage class for PVC (empty = default)
+  storageClass: ""
+  size: 10Gi
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: "1"
+    memory: 512Mi
+
+# Provider configuration
+providers:
+  ollama:
+    enabled: true
+    endpoint: "http://localhost:11434"
+  anthropic:
+    enabled: false
+    apiKeySecret: ""
+
+# Telemetry
+telemetry:
+  enabled: false
+  otlpEndpoint: ""

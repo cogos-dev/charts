@@ -1,0 +1,6 @@
+apiVersion: v2
+name: cogos-kernel
+description: CogOS kernel — continuous process daemon with foveated context, hash-chained ledger, and multi-provider routing
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

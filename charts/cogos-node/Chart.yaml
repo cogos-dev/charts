@@ -1,0 +1,16 @@
+apiVersion: v2
+name: cogos-node
+description: A complete CogOS node — kernel plus selected organelles
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+
+dependencies:
+  - name: cogos-kernel
+    version: "0.1.x"
+    repository: "file://../cogos-kernel"
+
+  - name: cogos-mod3
+    version: "0.1.x"
+    repository: "file://../cogos-mod3"
+    condition: mod3.enabled
