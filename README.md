@@ -1,5 +1,7 @@
 # CogOS Charts
 
+> Part of the [CogOS ecosystem](https://github.com/cogos-dev) — **how it DEPLOYS**
+
 Helm charts and deployment manifests for CogOS nodes.
 
 This repo defines what a CogOS node **is** by default — and what it **can be**.
