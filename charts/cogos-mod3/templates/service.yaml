@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "cogos-mod3.fullname" . }}
+  labels:
+    app.kubernetes.io/name: cogos-mod3
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: cogos-mod3
+    app.kubernetes.io/instance: {{ .Release.Name }}

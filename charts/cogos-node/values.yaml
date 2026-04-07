@@ -24,4 +24,4 @@ cogos-mod3:
     tag: latest
   port: 5300
   kernel:
-    endpoint: http://cogos-kernel:5200
+    endpoint: "http://{{ .Release.Name }}-cogos-kernel:5200"
