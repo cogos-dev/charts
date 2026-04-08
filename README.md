@@ -40,7 +40,7 @@ Each organelle has its own chart for standalone deployment or custom composition
 helm install kernel charts/cogos-kernel --set workspace.path=/data/workspace
 
 # Mod³ only (connects to existing kernel)
-helm install mod3 charts/cogos-mod3 --set kernel.endpoint=http://cogos-kernel:5200
+helm install mod3 charts/cogos-mod3 --set kernel.endpoint=http://cogos-kernel:6931
 ```
 
 ## Docker Compose (local development)
@@ -92,11 +92,13 @@ On macOS, the kernel can run in a container but Mod³ typically runs on bare met
 services:
   cogos:
     image: cogos-dev/cogos:latest    # containerized
-    ports: ["5200:5200"]
+    ports: ["6931:6931"]
 
   # mod3 runs on host, connects to kernel via network
-  # Start separately: mod3 serve --kernel http://localhost:5200
+  # Start separately: mod3 serve --kernel http://localhost:6931
 ```
+
+Port 6931 is the kernel default. Override via `kernel.yaml` or `--port` flag.
 
 For headless servers or Linux, everything can be fully containerized.
 
