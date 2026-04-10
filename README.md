@@ -1,22 +1,18 @@
 # CogOS Charts
 
-> Part of the [CogOS ecosystem](https://github.com/cogos-dev) — **how it DEPLOYS**
-
-Helm charts and deployment manifests for CogOS nodes.
-
-This repo defines what a CogOS node **is** by default — and what it **can be**.
+Helm charts and deployment manifests for deploying CogOS nodes to Kubernetes.
 
 ## Charts
 
 | Chart | What it deploys | Status |
 |-------|----------------|--------|
-| **cogos-node** | Complete node (kernel + selected organelles) | Primary — start here |
+| **cogos-node** | Complete node (kernel + optional services) | Primary -- start here |
 | **cogos-kernel** | Kernel only (the daemon) | Standalone component |
-| **cogos-mod3** | Mod³ modality server (TTS, VAD, STT) | Standalone component |
+| **cogos-mod3** | Mod³ voice server (TTS, VAD) | Standalone component |
 
 ### cogos-node (the umbrella chart)
 
-Deploys a complete CogOS node as a single unit. Includes the kernel by default and optionally enables additional organelles:
+Deploys a complete CogOS node as a single unit. Includes the kernel by default and optionally enables additional services:
 
 ```sh
 # Default: kernel only
@@ -29,11 +25,11 @@ helm install my-node charts/cogos-node --set mod3.enabled=true
 helm install my-node charts/cogos-node --set workspace.path=/data/my-workspace
 ```
 
-The node chart pins specific versions of each organelle. Upgrading the chart upgrades the whole node — like a Kubernetes release bundling component versions.
+The node chart pins specific versions of each component. Upgrading the chart upgrades the whole node — like a Kubernetes release bundling component versions.
 
 ### Component charts
 
-Each organelle has its own chart for standalone deployment or custom compositions:
+Each component has its own chart for standalone deployment or custom compositions:
 
 ```sh
 # Kernel only
@@ -54,7 +50,7 @@ docker compose up cogos  # Kernel only
 
 ## Version Pinning
 
-The node chart defines the tested combination of organelle versions:
+The node chart defines the tested combination of component versions:
 
 ```yaml
 # charts/cogos-node/Chart.yaml
@@ -66,23 +62,23 @@ dependencies:
     condition: mod3.enabled
 ```
 
-Upgrade the node chart → upgrade all organelles together, tested as a unit.
+Upgrade the node chart → upgrade all components together, tested as a unit.
 
 ## Architecture
 
 ```
 cogos-dev/charts          ← this repo (orchestration layer)
-  charts/cogos-node       ← umbrella: "what is a CogOS node?"
+  charts/cogos-node       ← umbrella chart
   charts/cogos-kernel     ← the daemon
-  charts/cogos-mod3       ← modality server
+  charts/cogos-mod3       ← voice server
   docker-compose.yml      ← local dev alternative
 
 cogos-dev/cogos           ← kernel source + Dockerfile
-cogos-dev/mod3            ← modality source + Dockerfile
+cogos-dev/mod3            ← voice server source + Dockerfile
 cogos-dev/constellation   ← identity/trust source + Dockerfile
 ```
 
-Each organelle repo builds and publishes its own container image. This repo composes them into deployable units.
+Each component repo builds and publishes its own container image. This repo composes them into deployable units.
 
 ## Local macOS Note
 
