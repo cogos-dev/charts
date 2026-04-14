@@ -1,5 +1,7 @@
 # CogOS Charts
 
+> **Experimental** — Minimal Helm templates for Kubernetes deployment. Not production-tested. These charts define the deployment structure but have not been validated in a real cluster.
+
 Helm charts and deployment manifests for deploying CogOS nodes to Kubernetes.
 
 ## Charts
